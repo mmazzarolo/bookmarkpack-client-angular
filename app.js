@@ -48,10 +48,6 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.
       clientId: '935284992833-m3ck8tviors0nbt9qtoqsnucsid7a9v0.apps.googleusercontent.com'
     });
 
-    $authProvider.github({
-      clientId: '0ba2600b1dbdb756688b'
-    });
-
     $authProvider.withCredentials = false;
 
     function skipIfLoggedIn($q, $auth) {
