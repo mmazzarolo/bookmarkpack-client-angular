@@ -22,10 +22,23 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.
           skipIfLoggedIn: skipIfLoggedIn
         }
       })
+      .state('forgot', {
+        url: '/forgot',
+        templateUrl: 'partials/forgot.html',
+        controller: 'ForgotCtrl',
+        resolve: {
+          skipIfLoggedIn: skipIfLoggedIn
+        }
+      })
       .state('logout', {
         url: '/logout',
         template: null,
         controller: 'LogoutCtrl'
+      })
+      .state('reset', {
+        url: '/reset/:token',
+        templateUrl: 'partials/reset.html',
+        controller: 'ResetCtrl'
       })
       .state('profile', {
         url: '/profile',

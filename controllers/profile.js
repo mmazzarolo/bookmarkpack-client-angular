@@ -1,13 +1,11 @@
 angular.module('MyApp')
-  .controller('ProfileCtrl', function($scope, $auth, toastr, Account, $log) {
+  .controller('ProfileCtrl', function($scope, $auth, toastr, Account) {
     $scope.getProfile = function() {
       Account.getProfile()
         .then(function(response) {
-          $log.debug('then');
           $scope.user = response.data;
         })
         .catch(function(response) {
-          $log.debug('catch');
           toastr.error(response.data.message, response.status);
         });
     };
