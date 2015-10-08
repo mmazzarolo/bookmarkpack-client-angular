@@ -1,6 +1,6 @@
 angular.module('MyApp')
   .controller('ForgotCtrl', function($scope, $auth, toastr, Account) {
-    if (!$auth.isAuthenticated()) { return; }
+    if ($auth.isAuthenticated()) { return; }
     $scope.forgot = function() {
       Account.forgotPassword($scope.data)
         .then(function() {

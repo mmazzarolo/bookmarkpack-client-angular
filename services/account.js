@@ -10,8 +10,8 @@ angular.module('MyApp')
       deleteProfile: function(profileData) {
         return $http.delete('http://localhost:3000/api/v1/me', profileData);
       },
-      forgotPassword: function(email) {
-        return $http.post('http://localhost:3000/auth/forgot', email);
+      forgotPassword: function(data) {
+        return $http.post('http://localhost:3000/auth/forgot', data);
       },
       resetPassword: function(token, data) {
         var url = 'http://localhost:3000/auth/reset/' + token;

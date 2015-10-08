@@ -1,6 +1,6 @@
 angular.module('MyApp')
-  .controller('ResetCtrl', function($scope, $location, toastr, Account, $stateParams) {
-    if (!$auth.isAuthenticated()) { return; }
+  .controller('ResetCtrl', function($scope, $location, toastr, Account, $stateParams, $auth) {
+    if ($auth.isAuthenticated()) { return; }
     $scope.reset = function() {
       Account.resetPassword($stateParams.token, $scope.data)
         .then(function() {
