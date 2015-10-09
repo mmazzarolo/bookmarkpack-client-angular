@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="center-form panel">
+      <div class="panel-body">
+        <h2 class="text-center">Password reset</h2>
+        <form method="post" ng-submit="resetConfirm()" name="resetConfirmForm">
+          <div class="form-group has-feedback" ng-class="{ 'has-error' : resetConfirmForm.password.$invalid && resetConfirmForm.password.$dirty }">
+            <input password-strength class="form-control input-lg" type="password" name="password" ng-model="data.password" placeholder="Password" required>
+            <span class="ion-key form-control-feedback"></span>
+            <div class="help-block text-danger" ng-if="resetConfirmForm.password.$dirty" ng-messages="resetConfirmForm.password.$error">
+              <div ng-message="required">Password is required.</div>
+            </div>
+          </div>
+          <div class="form-group has-feedback" ng-class="{ 'has-error' : resetConfirmForm.confirmPassword.$invalid && resetConfirmForm.confirmPassword.$dirty }">
+            <input password-match="data.password" class="form-control input-lg" type="password" name="confirmPassword" ng-model="confirmPassword" placeholder="Confirm Password">
+            <span class="ion-key form-control-feedback"></span>
+            <div class="help-block text-danger" ng-if="resetConfirmForm.confirmPassword.$dirty" ng-messages="resetConfirmForm.confirmPassword.$error">
+              <div ng-message="compareTo">Password must match.</div>
+            </div>
+          </div>
+          <button type="submit" ng-disabled="resetConfirmForm.$invalid" class="btn btn-lg btn-block btn-primary">Reset</button>
+          <br/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

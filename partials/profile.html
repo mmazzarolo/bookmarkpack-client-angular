@@ -19,6 +19,11 @@
         <button class="btn btn-lg btn-success">Update Information</button>
       </form>
     </div>
+    <div ng-controller="VerifyCtrl">
+      <button class="btn btn-sm btn-primary" ng-if="!user.verified" ng-click="verify()">
+        <i class="ion-social-googleplus"></i> Verify the account
+      </button>
+    </div>
   </div>
 
   <div class="panel panel-default">

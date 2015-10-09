@@ -22,28 +22,39 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.
           skipIfLoggedIn: skipIfLoggedIn
         }
       })
-      .state('forgot', {
-        url: '/forgot',
-        templateUrl: 'partials/forgot.html',
-        controller: 'ForgotCtrl',
-        resolve: {
-          skipIfLoggedIn: skipIfLoggedIn
-        }
-      })
       .state('logout', {
         url: '/logout',
         template: null,
         controller: 'LogoutCtrl'
       })
       .state('reset', {
-        url: '/reset/:token',
+        url: '/reset',
         templateUrl: 'partials/reset.html',
-        controller: 'ResetCtrl'
+        controller: 'ResetCtrl',
+        resolve: {
+          skipIfLoggedIn: skipIfLoggedIn
+        }
+      })
+      .state('resetConfirm', {
+        url: '/reset/:token',
+        templateUrl: 'partials/resetConfirm.html',
+        controller: 'ResetConfirmCtrl',
+        resolve: {
+          skipIfLoggedIn: skipIfLoggedIn
+        }
       })
       .state('profile', {
         url: '/profile',
         templateUrl: 'partials/profile.html',
         controller: 'ProfileCtrl',
+        resolve: {
+          loginRequired: loginRequired
+        }
+      })
+      .state('verifyConfirm', {
+        url: '/verify/:token',
+        template: null,
+        controller: 'VerifyConfirmCtrl',
         resolve: {
           loginRequired: loginRequired
         }

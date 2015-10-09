@@ -1,10 +1,9 @@
 angular.module('MyApp')
-  .controller('ResetCtrl', function($scope, $location, toastr, Auth, $stateParams, $auth) {
-    if ($auth.isAuthenticated()) { return; }
-    $scope.reset = function() {
-      Auth.resetPassword($scope.data)
+  .controller('VerifyCtrl', function($scope, $location, $auth, toastr, Auth) {
+    $scope.verify = function() {
+      Auth.verifyAccount($scope.user)
         .then(function() {
-          toastr.success('Mail sent correctly');
+          toastr.info('A verification email has been sent to ' + $scope.user.email);
         })
         .catch(function(response) {
           if (response.status != 422) {
@@ -15,5 +14,5 @@ angular.module('MyApp')
             });
           }
         });
-    }
+    };
   });

@@ -1,10 +1,10 @@
 angular.module('MyApp')
-  .controller('ForgotCtrl', function($scope, $auth, toastr, Account) {
-    if ($auth.isAuthenticated()) { return; }
-    $scope.forgot = function() {
-      Account.forgotPassword($scope.data)
+  .controller('VerifyConfirmCtrl', function($scope, $location, $auth, $stateParams, toastr, Auth) {
+    $scope.verifyConfirm = function() {
+      Auth.verifyConfirmAccount($stateParams.token)
         .then(function() {
-          toastr.success('Mail sent correctly');
+          toastr.info('Your account has been verified!');
+          $location.path('/');
         })
         .catch(function(response) {
           if (response.status != 422) {
@@ -16,4 +16,5 @@ angular.module('MyApp')
           }
         });
     };
+    $scope.verifyConfirm();
   });

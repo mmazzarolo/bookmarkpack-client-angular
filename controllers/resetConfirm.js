@@ -1,10 +1,11 @@
 angular.module('MyApp')
-  .controller('ResetCtrl', function($scope, $location, toastr, Auth, $stateParams, $auth) {
+  .controller('ResetConfirmCtrl', function($scope, $location, toastr, Auth, $stateParams, $auth) {
     if ($auth.isAuthenticated()) { return; }
-    $scope.reset = function() {
-      Auth.resetPassword($scope.data)
+    $scope.resetConfirm = function() {
+      Auth.resetConfirmPassword($stateParams.token, $scope.data)
         .then(function() {
-          toastr.success('Mail sent correctly');
+          toastr.info('You can now login with your new password.');
+          $location.path('/');
         })
         .catch(function(response) {
           if (response.status != 422) {
@@ -15,5 +16,5 @@ angular.module('MyApp')
             });
           }
         });
-    }
+    };
   });
