@@ -12,10 +12,6 @@
           <label class="control-label"><i class="ion-person"></i> Username</label>
           <input type="text" class="form-control" ng-model="user.username" />
         </div>
-        <div class="form-group">
-          <label class="control-label"><i class="ion-at"></i> Email Address</label>
-          <input type="email" class="form-control" ng-model="user.email" />
-        </div>
         <button class="btn btn-lg btn-success">Update Information</button>
       </form>
     </div>
@@ -23,6 +19,52 @@
       <button class="btn btn-sm btn-primary" ng-if="!user.verified" ng-click="verify()">
         <i class="ion-social-googleplus"></i> Verify the account
       </button>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Password</div>
+    <div class="panel-body">
+      <legend><i class="ion-link"></i> Change Password</legend>
+      <form method="post" ng-submit="updatePassword()" name="passwordForm">
+        <div class="form-group has-feedback" ng-class="{ 'has-error' : passwordForm.password.$invalid && passwordForm.password.$dirty }">
+          <input password-strength class="form-control input-lg" type="password" name="password" ng-model="passwordData.newPassword" placeholder="New Password" required>
+          <span class="ion-key form-control-feedback"></span>
+          <div class="help-block text-danger" ng-if="passwordForm.password.$dirty" ng-messages="passwordForm.password.$error">
+            <div ng-message="required">Password is required.</div>
+          </div>
+        </div>
+        <div class="form-group has-feedback" ng-class="{ 'has-error' : passwordForm.confirmPassword.$invalid && passwordForm.confirmPassword.$dirty }">
+          <input password-match="passwordData.newPassword" class="form-control input-lg" type="password" name="confirmPassword" ng-model="passwordData.confirmPassword" placeholder="Confirm Password">
+          <span class="ion-key form-control-feedback"></span>
+          <div class="help-block text-danger" ng-if="passwordForm.confirmPassword.$dirty" ng-messages="passwordForm.confirmPassword.$error">
+            <div ng-message="compareTo">Password must match.</div>
+          </div>
+        </div>
+        <div class="form-group has-feedback">
+          <input class="form-control input-lg" type="password" name="password" ng-model="passwordData.oldPassword" placeholder="Current Password" required>
+          <span class="ion-key form-control-feedback"></span>
+        </div>
+        <button class="btn btn-lg btn-success">Update Password</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Email</div>
+    <div class="panel-body">
+      <legend><i class="ion-link"></i> Change Email</legend>
+      <form method="post" ng-submit="updateEmail()">
+        <div class="form-group has-feedback">
+          <input class="form-control input-lg" type="text" name="email" ng-model="emailData.email" placeholder="Email" required autofocus>
+          <span class="ion-at form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input class="form-control input-lg" type="password" name="password" ng-model="emailData.password" placeholder="Password" required>
+          <span class="ion-key form-control-feedback"></span>
+        </div>
+        <button class="btn btn-lg btn-success">Update Email</button>
+      </form>
     </div>
   </div>
 

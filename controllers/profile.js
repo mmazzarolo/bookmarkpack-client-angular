@@ -24,6 +24,36 @@ angular.module('MyApp')
           }
         });
     };
+    $scope.updateEmail = function() {
+      Account.updateEmail($scope.emailData)
+        .then(function() {
+          toastr.success('Email has been updated');
+        })
+        .catch(function(response) {
+          if (response.status != 422) {
+            toastr.error(response.data.message, response.status);
+          } else {
+            angular.forEach(response.data.errors, function(value, key) {
+              toastr.error(value.message);
+            });
+          }
+        });
+    };
+    $scope.updatePassword = function() {
+      Account.updatePassword($scope.passwordData)
+        .then(function() {
+          toastr.success('Password has been updated');
+        })
+        .catch(function(response) {
+          if (response.status != 422) {
+            toastr.error(response.data.message, response.status);
+          } else {
+            angular.forEach(response.data.errors, function(value, key) {
+              toastr.error(value.message);
+            });
+          }
+        });
+    };
     $scope.link = function(provider) {
       $auth.link(provider)
         .then(function() {
