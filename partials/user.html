@@ -1,0 +1,40 @@
+<div class="container">
+
+  <!-- This is form to add a new item -->
+  <div class="panel panel-default">
+    <div class="panel-heading">New bookmark</div>
+    <div class="panel-body">
+      <form role="form">
+        <div class="form-group has-feedback">
+          <input ng-model="newBookmark.url" class="form-control input-lg" placeholder="Enter a new bookmark" required>
+          <span class="ion-earth form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input ng-model="newBookmark.name" class="form-control input-lg" placeholder="Title (optional)">
+          <span class="ion-pricetag form-control-feedback"></span>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="addBookmark()">Add</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Existing items -->
+  <div class="panel panel-default">
+    <div class="panel-heading">{{user.username}}'s bookmarks</div>
+    <div ng-repeat="bookmark in user.bookmarks">
+      <div class="panel-body" ng-if="!status.editing">
+        <img ng-src="http://www.google.com/s2/favicons?domain={{bookmark.url}}" />
+        <a ng-href="{{bookmark.url}}">{{bookmark.name}}</a>
+      </div>
+      <div class="panel-body" ng-if="status.editing">
+        <form role="form">
+          <div class="form-group">
+            <textarea ng-model="bookmark.url" class="form-control" placeholder="bookmark.url"></textarea>
+          </div>
+          <button type="button" class="btn btn-primary" ng-click="updateBookmark(bookmark)">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

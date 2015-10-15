@@ -58,6 +58,11 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.
         resolve: {
           loginRequired: loginRequired
         }
+      })
+      .state('user', {
+        url: '/:username',
+        templateUrl: 'partials/user.html',
+        controller: 'UserCtrl'
       });
 
     $urlRouterProvider.otherwise('/');
