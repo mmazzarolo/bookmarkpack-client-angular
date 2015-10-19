@@ -6,6 +6,9 @@ angular.module('MyApp')
       },
       postBookmark: function(username, bookmark) {
         return $http.post('http://localhost:3000/users/' + username + '/add', bookmark);
+      },
+      removeBookmark: function(username, bookmark) {
+        return $http.delete('http://localhost:3000/users/' + username + '/' + bookmark);
       }
     };
   });

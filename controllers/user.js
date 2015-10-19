@@ -32,5 +32,22 @@ angular.module('MyApp')
         });
     };
 
+    $scope.removeBookmark = function(removeBookmark) {
+      User.removeBookmark($stateParams.username, removeBookmark._id)
+        .then(function(response) {
+          $scope.user.bookmarks = _.reject($scope.user.bookmarks, function(el) { return el._id === removeBookmark._id; });
+          toastr.success('Bookmark deleted!');
+        })
+        .catch(function(response) {
+          if (response.status != 422) {
+            toastr.error(response.data.message, response.status);
+          } else {
+            angular.forEach(response.data.errors, function(value, key) {
+              toastr.error(value.message);
+            });
+          }
+        });
+    };
+
     $scope.getUser();
   });

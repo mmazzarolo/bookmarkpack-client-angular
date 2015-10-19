@@ -25,6 +25,7 @@
       <div class="panel-body" ng-if="!status.editing">
         <img ng-src="http://www.google.com/s2/favicons?domain={{bookmark.url}}" />
         <a ng-href="{{bookmark.url}}">{{bookmark.name}}</a>
+        <button type="button" class="btn btn-default" ng-click="removeBookmark(bookmark)">Delete</button>
       </div>
       <div class="panel-body" ng-if="status.editing">
         <form role="form">
