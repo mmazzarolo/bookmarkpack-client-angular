@@ -49,5 +49,30 @@ angular.module('MyApp')
         });
     };
 
+    $scope.editUpdateBookmark = function(editBookmark) {
+      $scope.editingId = editBookmark._id;
+    };
+
+    $scope.cancelUpdateBookmark = function() {
+      $scope.editingId = null;
+    };
+
+    $scope.saveUpdateBookmark = function(editBookmark) {
+      User.editBookmark($stateParams.username, editBookmark)
+        .then(function(response) {
+          toastr.success('Bookmark edit!');
+        })
+        .catch(function(response) {
+          if (response.status != 422) {
+            toastr.error(response.data.message, response.status);
+          } else {
+            angular.forEach(response.data.errors, function(value, key) {
+              toastr.error(value.message);
+            });
+          }
+        });
+        $scope.cancelUpdateBookmark();
+    };
+
     $scope.getUser();
   });

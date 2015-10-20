@@ -9,6 +9,10 @@ angular.module('MyApp')
       },
       removeBookmark: function(username, bookmark) {
         return $http.delete('http://localhost:3000/users/' + username + '/' + bookmark);
+      },
+      editBookmark: function(username, bookmark) {
+        var url = 'http://localhost:3000/users/' + username + '/' + bookmark._id;
+        return $http.patch(url, bookmark);
       }
     };
   });

@@ -10,7 +10,7 @@
           <span class="ion-earth form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input ng-model="newBookmark.name" class="form-control input-lg" placeholder="Title (optional)">
+          <input ng-model="newBookmark.name" class="form-control input-lg" placeholder="Name (optional)">
           <span class="ion-pricetag form-control-feedback"></span>
         </div>
         <button type="button" class="btn btn-primary" ng-click="addBookmark()">Add</button>
@@ -21,21 +21,29 @@
   <!-- Existing items -->
   <div class="panel panel-default">
     <div class="panel-heading">{{user.username}}'s bookmarks</div>
-    <div ng-repeat="bookmark in user.bookmarks">
-      <div class="panel-body" ng-if="!status.editing">
-        <img ng-src="http://www.google.com/s2/favicons?domain={{bookmark.url}}" />
-        <a ng-href="{{bookmark.url}}">{{bookmark.name}}</a>
-        <button type="button" class="btn btn-default" ng-click="removeBookmark(bookmark)">Delete</button>
+      <div ng-repeat="bookmark in user.bookmarks">
+        <div class="panel-body" ng-if="editingId != bookmark._id">
+          <img ng-src="http://www.google.com/s2/favicons?domain={{bookmark.url}}" />
+          <a ng-href="{{bookmark.url}}">{{bookmark.name}}</a>
+          <span class="ion-trash-a pull-right sortable" ng-click="removeBookmark(bookmark)"></span>
+          <span class="ion-ios-compose pull-right sortable" ng-click="editUpdateBookmark(bookmark)"></span>
+        </div>
+        <div class="panel-body" ng-if="editingId == bookmark._id">
+          <form role="form">
+            <div class="form-group">
+              <label>Title:</label>{{bookmark.title}}
+            </div>
+            <div class="form-group">
+              <input ng-model="bookmark.name" class="form-control" placeholder="Name (optional)"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Url:</label>{{bookmark.url}}
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="cancelUpdateBookmark()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="saveUpdateBookmark(bookmark)">Save</button>
+          </form>
+        </div>
       </div>
-      <div class="panel-body" ng-if="status.editing">
-        <form role="form">
-          <div class="form-group">
-            <textarea ng-model="bookmark.url" class="form-control" placeholder="bookmark.url"></textarea>
-          </div>
-          <button type="button" class="btn btn-primary" ng-click="updateBookmark(bookmark)">Save</button>
-        </form>
-      </div>
-    </div>
   </div>
 
 </div>

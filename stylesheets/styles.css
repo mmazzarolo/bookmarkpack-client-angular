@@ -406,3 +406,8 @@ ul {
     opacity: 1;
   }
 }
+
+.sortable {
+    cursor: pointer;
+    padding-left: 5px;
+}
