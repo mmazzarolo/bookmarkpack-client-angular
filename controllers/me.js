@@ -1,5 +1,5 @@
 angular.module('MyApp')
-  .controller('MeCtrl', function($scope, $auth, $stateParams, toastr, Me) {
+  .controller('MeCtrl', function($scope, $auth, toastr, Me) {
 
     $scope.getUser = function() {
       Me.getUser()
@@ -16,7 +16,7 @@ angular.module('MyApp')
     };
 
     $scope.addBookmark = function() {
-      Me.postBookmark($stateParams.username, $scope.newBookmark)
+      Me.postBookmark($scope.newBookmark)
         .then(function(response) {
           $scope.user.bookmarks.push(response.data);
           toastr.success('Bookmark added!');
@@ -33,7 +33,7 @@ angular.module('MyApp')
     };
 
     $scope.removeBookmark = function(removeBookmark) {
-      Me.removeBookmark($stateParams.username, removeBookmark._id)
+      Me.removeBookmark(removeBookmark)
         .then(function(response) {
           $scope.user.bookmarks = _.reject($scope.user.bookmarks, function(el) { return el._id === removeBookmark._id; });
           toastr.success('Bookmark deleted!');
@@ -58,7 +58,7 @@ angular.module('MyApp')
     };
 
     $scope.saveUpdateBookmark = function(editBookmark) {
-      Me.editBookmark($stateParams.username, editBookmark)
+      Me.editBookmark(editBookmark)
         .then(function(response) {
           toastr.success('Bookmark edit!');
         })

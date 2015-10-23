@@ -1,21 +1,24 @@
 angular.module('MyApp')
-  .factory('Me', function($http) {
-    return {
-      getUser: function() {
-        console.log('http://localhost:3000/user/');
-        return $http.get('http://localhost:3000/user');
+.factory('Me', function($http) {
+  return {
+    getUser: function() {
+      return $http.get('http://localhost:3000/user');
+    },
+    postBookmark: function(bookmark) {
+      return $http.post('http://localhost:3000/user/bookmarks', bookmark);
+    },
+    removeBookmark: function(bookmark) {
+        // http://stackoverflow.com/questions/22186671/angular-resource-delete-wont-send-body-to-express-js-server
+        var config = {
+          method: 'DELETE',
+          url: 'http://localhost:3000/user/bookmarks/',
+          data: bookmark,
+          headers: {'Content-Type': 'application/json;charset=utf-8'}
+        };
+        return $http(config);
       },
-      postBookmark: function(username, bookmark) {
-        console.log('http://localhost:3000/user/bookmarks/' + bookmark);
-        return $http.post('http://localhost:3000/user/bookmarks', bookmark);
-      },
-      removeBookmark: function(username, bookmark) {
-        console.log('http://localhost:3000/user/bookmarks/' + bookmark);
-        return $http.delete('http://localhost:3000/user/bookmarks/', bookmark);
-      },
-      editBookmark: function(username, bookmark) {
-        console.log('http://localhost:3000/user/bookmarks/' + bookmark);
-        return $http.patch('http://localhost:3000/user/bookmaks/', bookmark);
+      editBookmark: function(bookmark) {
+        return $http.patch('http://localhost:3000/user/bookmarks/', bookmark);
       }
     };
   });
