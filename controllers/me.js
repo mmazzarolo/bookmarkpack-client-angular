@@ -32,10 +32,10 @@ angular.module('MyApp')
         });
     };
 
-    $scope.removeBookmark = function(removeBookmark) {
-      Me.removeBookmark(removeBookmark)
+    $scope.removeBookmark = function(bookmark) {
+      Me.removeBookmark(bookmark)
         .then(function(response) {
-          $scope.user.bookmarks = _.reject($scope.user.bookmarks, function(el) { return el._id === removeBookmark._id; });
+          $scope.user.bookmarks = _.reject($scope.user.bookmarks, function(el) { return el._id == bookmark._id; });
           toastr.success('Bookmark deleted!');
         })
         .catch(function(response) {
@@ -49,17 +49,19 @@ angular.module('MyApp')
         });
     };
 
-    $scope.editUpdateBookmark = function(editBookmark) {
-      $scope.editingId = editBookmark._id;
+    $scope.editUpdateBookmark = function(bookmark) {
+      $scope.editingId = bookmark._id;
     };
 
     $scope.cancelUpdateBookmark = function() {
       $scope.editingId = null;
     };
 
-    $scope.saveUpdateBookmark = function(editBookmark) {
-      Me.editBookmark(editBookmark)
+    $scope.saveUpdateBookmark = function(bookmark) {
+      Me.editBookmark(bookmark)
         .then(function(response) {
+          var index = $scope.user.bookmarks.indexOf(bookmark);
+          $scope.user.bookmarks[index].favicon = response.data.favicon;
           toastr.success('Bookmark edit!');
         })
         .catch(function(response) {
