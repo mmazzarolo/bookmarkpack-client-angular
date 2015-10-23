@@ -58,6 +58,13 @@ angular.module('MyApp')
     };
 
     $scope.saveUpdateBookmark = function(bookmark) {
+      var tagsStart = bookmark.tags;
+      var tags = [];
+      for (var item in bookmark.tags) {
+        tags.push(bookmark.tags[item].text);
+      }
+      bookmark.tags = tags;
+      console.log(bookmark.tags);
       Me.editBookmark(bookmark)
         .then(function(response) {
           var index = $scope.user.bookmarks.indexOf(bookmark);
