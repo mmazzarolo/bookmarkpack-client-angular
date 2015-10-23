@@ -1,5 +1,23 @@
 <div class="container">
 
+  <!-- This is form to add a new item -->
+  <div class="panel panel-default">
+    <div class="panel-heading">New bookmark</div>
+    <div class="panel-body">
+      <form role="form">
+        <div class="form-group has-feedback">
+          <input ng-model="newBookmark.url" class="form-control input-lg" placeholder="Enter a new bookmark" required>
+          <span class="ion-earth form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input ng-model="newBookmark.name" class="form-control input-lg" placeholder="Name (optional)">
+          <span class="ion-pricetag form-control-feedback"></span>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="addBookmark()">Add</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Existing items -->
   <div class="panel panel-default">
     <div class="panel-heading">{{user.username}}'s bookmarks</div>

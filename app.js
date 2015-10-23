@@ -59,6 +59,14 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.
       loginRequired: loginRequired
     }
   })
+  .state('me', {
+    url: '/me',
+    templateUrl: 'partials/me.html',
+    controller: 'MeCtrl',
+    resolve: {
+      loginRequired: loginRequired
+    }
+  })
   .state('user', {
     url: '/:username',
     templateUrl: 'partials/user.html',

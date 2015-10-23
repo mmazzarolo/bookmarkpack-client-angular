@@ -21,6 +21,7 @@
   <ul class="nav navbar-nav">
     <li><a href="/#/">Home</a></li>
     <li ng-if="isAuthenticated()"><a href="/#/profile">Profile</a></li>
+    <li ng-if="isAuthenticated()"><a href="/#/me">MyBook</a></li>
   </ul>
   <ul ng-if="!isAuthenticated()" class="nav navbar-nav pull-right">
     <li><a href="/#/reset">Forgot</a></li>
@@ -62,10 +63,12 @@
 <script src="/controllers/logout.js"></script>
 <script src="/controllers/profile.js"></script>
 <script src="/controllers/user.js"></script>
+<script src="/controllers/me.js"></script>
 <script src="/controllers/navbar.js"></script>
 
 <script src="/services/account.js"></script>
 <script src="/services/auth.js"></script>
 <script src="/services/user.js"></script>
+<script src="/services/me.js"></script>
 </body>
 </html>
