@@ -1,87 +1,88 @@
-angular.module('MyApp')
-  .controller('MeCtrl', function($scope, $auth, toastr, Me) {
+angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API) {
 
-    $scope.getUser = function() {
-      Me.getUser()
-        .then(function(response) {
-          $scope.user = response.data;
-        })
-        .catch(function(response) {
+  $scope.getUser = function() {
+    API.getMe()
+      .then(function(response) {
+        $scope.user = response.data;
+      })
+      .catch(function(response) {
+        toastr.error(response.data.message, response.status);
+      });
+  };
+
+  $scope.isAuthorized = function() {
+    return $scope.user.username;
+  };
+
+  $scope.addBookmark = function() {
+    API.addBookmark($scope.newBookmark)
+      .then(function(response) {
+        $scope.user.bookmarks.push(response.data);
+        toastr.success('Bookmark added!');
+      })
+      .catch(function(response) {
+        if (response.status != 422) {
           toastr.error(response.data.message, response.status);
+        } else {
+          angular.forEach(response.data.errors, function(value, key) {
+            toastr.error(value.message);
+          });
+        }
+      });
+  };
+
+  $scope.removeBookmark = function(bookmark) {
+    API.deleteBookmark(bookmark)
+      .then(function(response) {
+        $scope.user.bookmarks = _.reject($scope.user.bookmarks, function(el) {
+          return el._id == bookmark._id;
         });
-    };
+        toastr.success('Bookmark deleted!');
+      })
+      .catch(function(response) {
+        if (response.status != 422) {
+          toastr.error(response.data.message, response.status);
+        } else {
+          angular.forEach(response.data.errors, function(value, key) {
+            toastr.error(value.message);
+          });
+        }
+      });
+  };
 
-    $scope.isAuthorized = function() {
-      return $scope.user.username;
-    };
+  $scope.editUpdateBookmark = function(bookmark) {
+    $scope.editingId = bookmark._id;
+  };
 
-    $scope.addBookmark = function() {
-      Me.postBookmark($scope.newBookmark)
-        .then(function(response) {
-          $scope.user.bookmarks.push(response.data);
-          toastr.success('Bookmark added!');
-        })
-        .catch(function(response) {
-          if (response.status != 422) {
-            toastr.error(response.data.message, response.status);
-          } else {
-            angular.forEach(response.data.errors, function(value, key) {
-              toastr.error(value.message);
-            });
-          }
-        });
-    };
+  $scope.cancelUpdateBookmark = function() {
+    $scope.editingId = null;
+  };
 
-    $scope.removeBookmark = function(bookmark) {
-      Me.removeBookmark(bookmark)
-        .then(function(response) {
-          $scope.user.bookmarks = _.reject($scope.user.bookmarks, function(el) { return el._id == bookmark._id; });
-          toastr.success('Bookmark deleted!');
-        })
-        .catch(function(response) {
-          if (response.status != 422) {
-            toastr.error(response.data.message, response.status);
-          } else {
-            angular.forEach(response.data.errors, function(value, key) {
-              toastr.error(value.message);
-            });
-          }
-        });
-    };
+  $scope.saveUpdateBookmark = function(bookmark) {
+    var tagsStart = bookmark.tags;
+    var tags = [];
+    for (var item in bookmark.tags) {
+      tags.push(bookmark.tags[item].text);
+    }
+    bookmark.tags = tags;
+    console.log(bookmark.tags);
+    API.updateBookmark(bookmark)
+      .then(function(response) {
+        var index = $scope.user.bookmarks.indexOf(bookmark);
+        $scope.user.bookmarks[index].favicon = response.data.favicon;
+        toastr.success('Bookmark edit!');
+      })
+      .catch(function(response) {
+        if (response.status != 422) {
+          toastr.error(response.data.message, response.status);
+        } else {
+          angular.forEach(response.data.errors, function(value, key) {
+            toastr.error(value.message);
+          });
+        }
+      });
+    $scope.cancelUpdateBookmark();
+  };
 
-    $scope.editUpdateBookmark = function(bookmark) {
-      $scope.editingId = bookmark._id;
-    };
-
-    $scope.cancelUpdateBookmark = function() {
-      $scope.editingId = null;
-    };
-
-    $scope.saveUpdateBookmark = function(bookmark) {
-      var tagsStart = bookmark.tags;
-      var tags = [];
-      for (var item in bookmark.tags) {
-        tags.push(bookmark.tags[item].text);
-      }
-      bookmark.tags = tags;
-      console.log(bookmark.tags);
-      Me.editBookmark(bookmark)
-        .then(function(response) {
-          var index = $scope.user.bookmarks.indexOf(bookmark);
-          $scope.user.bookmarks[index].favicon = response.data.favicon;
-          toastr.success('Bookmark edit!');
-        })
-        .catch(function(response) {
-          if (response.status != 422) {
-            toastr.error(response.data.message, response.status);
-          } else {
-            angular.forEach(response.data.errors, function(value, key) {
-              toastr.error(value.message);
-            });
-          }
-        });
-        $scope.cancelUpdateBookmark();
-    };
-
-    $scope.getUser();
-  });
+  $scope.getUser();
+});
