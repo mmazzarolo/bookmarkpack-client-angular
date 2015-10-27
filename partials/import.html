@@ -1,0 +1,26 @@
+<div class="container">
+
+  <!-- This is form to add a new item -->
+  <div class="panel panel-default">
+    <div class="panel-heading">New bookmark</div>
+    <div class="panel-body">
+      <div ngf-drop ngf-select ng-model="file" class="drop-box"
+      ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true">Drop pdfs or images here or click to upload</div>
+      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+    </div>
+    <div ng-if="chromeFile">
+      <h2>File content is:</h2>
+      <pre>{{ chromeFile }}</pre>
+    </div>
+    File:
+    <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+      <span class="progress" ng-show="f.progress >= 0">
+        <div style="width:{{f.progress}}%"
+        ng-bind="f.progress + '%'"></div>
+      </span>
+    </div>
+  </div>
+  {{errorMsg}}
+
+</div>

@@ -1,4 +1,4 @@
-angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.router', 'satellizer', 'ngTagsInput'])
+angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.router', 'satellizer', 'ngTagsInput', 'ngFileUpload'])
 .config(function($stateProvider, $urlRouterProvider, $authProvider) {
   $stateProvider
   .state('home', {
@@ -66,6 +66,11 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.
     resolve: {
       loginRequired: loginRequired
     }
+  })
+  .state('import', {
+    url: '/import',
+    templateUrl: 'partials/import.html',
+    controller: 'ImportCtrl'
   })
   .state('user', {
     url: '/:username',

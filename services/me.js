@@ -12,6 +12,9 @@ angular.module('MyApp')
        params: { 'extract[]': ['favicon','title'] }
      });
    },
+   postImport: function(file) {
+     return $http.post('http://localhost:3000/user/bookmarks/import', file);
+   },
    removeBookmark: function(bookmark) {
      return $http({
        method: 'DELETE',
