@@ -13,14 +13,13 @@
       <h2>File content is:</h2>
       <pre>{{ chromeFile }}</pre>
     </div>
-    File:
-    <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
-      <span class="progress" ng-show="f.progress >= 0">
-        <div style="width:{{f.progress}}%"
-        ng-bind="f.progress + '%'"></div>
-      </span>
-    </div>
   </div>
-  {{errorMsg}}
+
+  <form method="post" ng-submit="github()" name="githubForm">
+    <div class="form-group">
+      <input class="form-control input-lg" type="text" name="username" ng-model="username" placeholder="GitHub Username" required autofocus>
+      <button type="submit" class="btn">Add</button>
+    </div>
+  </form>
 
 </div>

@@ -61,8 +61,8 @@ angular.module('MyApp').factory('API', function($http) {
         }
       });
     },
-    importGithub: function(file) {
-      return $http.post(baseUrl + '/user/bookmarks/import', file);
+    importGithub: function(username) {
+      return $http.post(baseUrl + '/user/bookmarks/github', username);
     },
     deleteBookmark: function(bookmark) {
       return $http({
