@@ -51,6 +51,9 @@ angular.module('MyApp').factory('API', function($http) {
     /**
      * Bookmark routes.
      */
+    getMyBookmarks: function() {
+      return $http.get(baseUrl + '/user/bookmarks');
+    },
     addBookmark: function(bookmark) {
       return $http({
         method: 'POST',

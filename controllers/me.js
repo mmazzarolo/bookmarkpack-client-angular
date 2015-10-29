@@ -1,9 +1,9 @@
 angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API) {
 
-  $scope.getUser = function() {
-    API.getMe()
+  $scope.getMyBookmarks = function() {
+    API.getMyBookmarks()
       .then(function(response) {
-        $scope.user = response.data;
+        $scope.bookmarks = response.data;
       })
       .catch(function(response) {
         toastr.error(response.data.message, response.status);
@@ -84,5 +84,5 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
     $scope.cancelUpdateBookmark();
   };
 
-  $scope.getUser();
+  $scope.getMyBookmarks();
 });

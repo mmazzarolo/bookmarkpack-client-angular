@@ -20,8 +20,8 @@
 
   <!-- Existing items -->
   <div class="panel panel-default">
-    <div class="panel-heading">{{user.username}}'s bookmarks</div>
-      <div ng-repeat="bookmark in user.bookmarks">
+    <div class="panel-heading">My bookmarks</div>
+      <div ng-repeat="bookmark in bookmarks">
         <div class="panel-body" ng-if="editingId != bookmark._id">
           <img ng-src="{{bookmark.favicon}}" />
           <a ng-href="{{bookmark.url}}">{{bookmark.name}}</a>
