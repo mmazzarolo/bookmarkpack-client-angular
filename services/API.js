@@ -77,8 +77,8 @@ angular.module('MyApp').factory('API', function($http) {
         }
       });
     },
-    updateBookmark: function(bookmark) {
-      return $http.patch(baseUrl + '/user/bookmarks/', bookmark);
+    editBookmark: function(bookmark) {
+      return $http.put(baseUrl + '/user/bookmarks/', bookmark);
     }
   };
 });

@@ -10,14 +10,10 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
       });
   };
 
-  $scope.isAuthorized = function() {
-    return $scope.user.username;
-  };
-
   $scope.addBookmark = function() {
     API.addBookmark($scope.newBookmark)
       .then(function(response) {
-        $scope.user.bookmarks.push(response.data);
+        $scope.bookmarks.push(response.data);
         toastr.success('Bookmark added!');
       })
       .catch(function(response) {
@@ -31,11 +27,11 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
       });
   };
 
-  $scope.removeBookmark = function(bookmark) {
+  $scope.deleteBookmark = function(bookmark) {
     API.deleteBookmark(bookmark)
       .then(function(response) {
-        $scope.user.bookmarks = _.reject($scope.user.bookmarks, function(el) {
-          return el._id == bookmark._id;
+        $scope.bookmarks = _.reject($scope.bookmarks, function(el) {
+          return el.id == bookmark.id;
         });
         toastr.success('Bookmark deleted!');
       })
@@ -50,27 +46,27 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
       });
   };
 
-  $scope.editUpdateBookmark = function(bookmark) {
-    $scope.editingId = bookmark._id;
+  $scope.startEditingBookmark = function(bookmark) {
+    $scope.editingId = bookmark.id;
   };
 
-  $scope.cancelUpdateBookmark = function() {
+  $scope.cancelEditingBookmark = function() {
     $scope.editingId = null;
   };
 
-  $scope.saveUpdateBookmark = function(bookmark) {
+  $scope.editBookmark = function(bookmark) {
     var tagsStart = bookmark.tags;
     var tags = [];
     for (var item in bookmark.tags) {
       tags.push(bookmark.tags[item].text);
     }
     bookmark.tags = tags;
-    console.log(bookmark.tags);
-    API.updateBookmark(bookmark)
+    API.editBookmark(bookmark)
       .then(function(response) {
-        var index = $scope.user.bookmarks.indexOf(bookmark);
-        $scope.user.bookmarks[index].favicon = response.data.favicon;
-        toastr.success('Bookmark edit!');
+        var index = $scope.bookmarks.indexOf(bookmark);
+        $scope.bookmarks[index] = response.data;
+        $scope.cancelEditingBookmark();
+        toastr.success('Bookmark updated!');
       })
       .catch(function(response) {
         if (response.status != 422) {
@@ -81,7 +77,6 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
           });
         }
       });
-    $scope.cancelUpdateBookmark();
   };
 
   $scope.getMyBookmarks();
