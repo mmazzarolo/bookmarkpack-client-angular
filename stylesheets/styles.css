@@ -422,3 +422,38 @@ ul {
   vertical-align: middle;
 }
 
+table {
+  width:100%;
+  border-spacing: 4px;
+}
+td {
+  padding: 8px;
+}
+td a {
+  color: #333;
+}
+tr {
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+table tr:nth-child(even) {
+  background-color: #F9F9F9;
+}
+table tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table td.expand {
+  width: 99%
+}
+
+table tr.selected {
+  background-color: #B0CBFA;
+}
+
+table td.favicon {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+table td.

@@ -21,27 +21,54 @@
   <!-- Existing items -->
   <div class="panel panel-default">
     <div class="panel-heading">My bookmarks</div>
-    <table>
-      <tr ng-repeat="bookmark in bookmarks">
-        <td><img ng-src="{{bookmark.favicon}}" /></td>
-        <td><a ng-href="{{bookmark.url}}">{{bookmark.name}}</a></td>
-        <td>
-          <button type="button" class="btn btn-danger" ng-click="deleteBookmark(bookmark)">
-            <i class="glyphicon glyphicon-remove icon-remove"></i>
-          </button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-info" ng-click="editBookmark(bookmark)">
-            <i class="glyphicon glyphicon-pencil icon-pencil"></i>
-          </button>
-        </td>
-      </tr>
-    </table>
+    <div class="panel-body">
+      <table>
+        <tr ng-repeat="bookmark in bookmarks" ng-class="editingId == bookmark.id ? 'selected' : 'default'">
+
+          <td class="favicon"><img ng-src="{{bookmark.favicon}}" /></td>
+          <td ng-if="editingId != bookmark.id" class="expand"><a ng-href="{{bookmark.url}}">{{bookmark.name}}</a></td>
+          <td ng-if="editingId == bookmark.id" class="expand selected">
+            <label>URL</label>
+            <input ng-model="bookmark.url" class="form-control" placeholder="URL">
+            <br />
+            <label>Name</label>
+            <input ng-model="bookmark.name" class="form-control" placeholder="Name (optional)">
+            <br />
+            <label>Tags</label>
+            <tags-input ng-model="bookmark.tags" placeholder="Tags"></tags-input></label>
+            <br />
+            <label>Notes</label>
+            <textarea ng-model="bookmark.notes" class="form-control" placeholder="Notes"></textarea></label>
+          </td>
+          <td ng-if="editingId != bookmark.id" >
+            <button type="button" class="btn btn-danger" ng-click="deleteBookmark(bookmark)">
+              <i class="glyphicon glyphicon-trash icon-trash"></i>
+            </button>
+          </td>
+          <td ng-if="editingId != bookmark.id" >
+            <button type="button" class="btn btn-info" ng-click="startEditingBookmark(bookmark)">
+              <i class="glyphicon glyphicon-pencil icon-pencil"></i>
+            </button>
+          </td>
+          <td ng-if="editingId == bookmark.id" >
+            <button type="button" class="btn btn-warning" ng-click="cancelEditingBookmark(bookmark)">
+              <i class="glyphicon glyphicon-remove icon-remove"></i>
+            </button>
+          </td>
+          <td ng-if="editingId == bookmark.id" >
+            <button type="button" class="btn btn-success" ng-click="editBookmark(bookmark)">
+              <i class="glyphicon glyphicon-ok icon-ok"></i>
+            </button>
+          </td>
+
+        </tr>
+      </table>
+    </div>
   </div>
 
 
 
-  <div class="panel panel-default">
+  <!-- <div class="panel panel-default">
     <div class="panel-heading">My bookmarks</div>
     <div ng-repeat="bookmark in bookmarks">
       <div class="panel-body" ng-if="editingId != bookmark.id">
@@ -69,6 +96,6 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>

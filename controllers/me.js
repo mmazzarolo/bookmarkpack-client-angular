@@ -80,4 +80,5 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
   };
 
   $scope.getMyBookmarks();
+  $scope.editingId = null;
 });
