@@ -1,19 +1,46 @@
 <div class="container">
 
   <!-- This is form to add a new item -->
-  <div class="panel panel-default">
+  <div id="newBookmark" class="panel panel-default">
     <div class="panel-heading">New bookmark</div>
     <div class="panel-body">
+
+      <!-- Add a new bookmark -->
+      <h4>Add a new bookmark from a known URL:</h4>
       <form role="form">
-        <div class="form-group has-feedback">
-          <input ng-model="newBookmark.url" class="form-control input-lg" placeholder="Enter a new bookmark" required>
+        <div class="input-group has-feedback">
+          <input ng-model="newBookmark.url" class="form-control input-lg" placeholder="Enter here the URL" required>
           <span class="ion-earth form-control-feedback"></span>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" ng-click="addFromUrl()">Add</button>
+          </span>
         </div>
-        <div class="form-group has-feedback">
-          <input ng-model="newBookmark.name" class="form-control input-lg" placeholder="Name (optional)">
-          <span class="ion-pricetag form-control-feedback"></span>
+      </form>
+
+      <div class="bookmark-or-separator">
+        <h4 class="text">or</h4> <hr>
+      </div>
+
+      <!-- Import from Chrome/Firefox -->
+      <h4>Import bookmarks from your browser:</h4>
+      <div ngf-drop ngf-select ng-model="file" class="drop-box"
+      ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true">Drop here the Chrome/Firefox bookmarks in .html format.</div>
+      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+      <div class="bookmark-or-separator">
+        <h4 class="text">or</h4> <hr>
+      </div>
+
+      <!-- Import from GitHub -->
+      <h4>Import bookmarks from someone's starred repositories on GitHub:</h4>
+      <form role="form">
+        <div class="input-group has-feedback">
+          <input ng-model="username" class="form-control input-lg" placeholder="Enter here the GitHub username" required>
+          <span class="ion-social-octocat form-control-feedback"></span>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" ng-click="addFromGithub()">Add</button>
+          </span>
         </div>
-        <button type="button" class="btn btn-primary" ng-click="addBookmark()">Add</button>
       </form>
     </div>
   </div>
@@ -65,37 +92,5 @@
       </table>
     </div>
   </div>
-
-
-
-  <!-- <div class="panel panel-default">
-    <div class="panel-heading">My bookmarks</div>
-    <div ng-repeat="bookmark in bookmarks">
-      <div class="panel-body" ng-if="editingId != bookmark.id">
-        <img ng-src="{{bookmark.favicon}}" />
-        <a ng-href="{{bookmark.url}}">{{bookmark.name}}</a>
-        <span class="ion-trash-a pull-right sortable" ng-click="deleteBookmark(bookmark)"></span>
-        <span class="ion-ios-compose pull-right sortable" ng-click="startEditingBookmark(bookmark)"></span>
-      </div>
-      <div class="panel-body" ng-if="editingId == bookmark.id">
-        <form role="form">
-          <div class="form-group">
-            <label>Title:</label>{{bookmark.title}}
-          </div>
-          <div class="form-group">
-            <input ng-model="bookmark.name" class="form-control" placeholder="Name (optional)"></textarea>
-          </div>
-          <div class="form-group">
-            <input ng-model="bookmark.url" class="form-control" placeholder="Url"></textarea>
-          </div>
-          <div class="form-group">
-            <tags-input ng-model="bookmark.tags" placeholder="Tag"></tags-input>
-          </div>
-          <button type="button" class="btn btn-primary" ng-click="cancelEditingBookmark()">Cancel</button>
-          <button type="button" class="btn btn-primary" ng-click="editBookmark(bookmark)">Save</button>
-        </form>
-      </div>
-    </div>
-  </div> -->
 
 </div>

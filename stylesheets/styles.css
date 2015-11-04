@@ -456,4 +456,45 @@ table td.favicon {
   padding-right: 16px;
 }
 
-table td.
+.bookmark-or-separator {
+  position: relative;
+  height: 34px;
+  text-align: center;
+  background: none;
+  margin-bottom: 24px;
+}
+
+.bookmark-or-separator hr {
+  width: 90%;
+  margin: -16px auto 10px auto;
+  border-top: 1px solid #dce0e0;
+}
+
+.bookmark-or-separator .text {
+  color: #333;
+  display: inline-block;
+  padding: 8px;
+  margin: 0;
+  background-color: #fff;
+}
+
+#newBookmark .input-group-btn {
+  padding-left: 16px;
+}
+
+#newBookmark h4 {
+  color: #333;
+  padding-left: 16px;
+}
+
+#newBookmark .input-group {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+#newBookmark .drop-box {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+

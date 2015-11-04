@@ -1,4 +1,4 @@
-angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API) {
+angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, Upload, $timeout, API) {
 
   $scope.getMyBookmarks = function() {
     API.getMyBookmarks()
@@ -10,13 +10,64 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
       });
   };
 
-  $scope.addBookmark = function() {
+  $scope.addFromUrl = function() {
     API.addBookmark($scope.newBookmark)
       .then(function(response) {
         $scope.bookmarks.push(response.data);
         toastr.success('Bookmark added!');
       })
       .catch(function(response) {
+        if (response.status != 422) {
+          toastr.error(response.data.message, response.status);
+        } else {
+          angular.forEach(response.data.errors, function(value, key) {
+            toastr.error(value.message);
+          });
+        }
+      });
+  };
+
+
+  $scope.read = function(file) {
+    var baseUrl = 'http://localhost:3000';
+    file.upload = Upload.upload({
+      url: baseUrl + '/user/bookmarks/import',
+      data: {
+        file: file
+      }
+    });
+    file.upload.then(function(response) {
+      $timeout(function() {
+        file.result = response.data.message;
+      });
+      console.log(response)
+      $scope.bookmarks = $scope.bookmarks.concat(response.data);
+      toastr.success('Bookmarks added!');
+    }, function(response) {
+      if (response.status != 422) {
+        toastr.error(response.data.message, response.status);
+      } else {
+        angular.forEach(response.data.errors, function(value, key) {
+          toastr.error(value.message);
+        });
+      }
+    }, function(evt) {
+      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    });
+  };
+
+  $scope.addFromGithub = function() {
+    var username = {
+      'username': $scope.username
+    };
+    API.importGithub(username)
+      .then(function(response) {
+        console.log(response)
+        $scope.bookmarks = $scope.bookmarks.concat(response.data);
+        toastr.success('Bookmarks added!');
+      })
+      .catch(function(response) {
+        console.log(response);
         if (response.status != 422) {
           toastr.error(response.data.message, response.status);
         } else {
@@ -81,4 +132,9 @@ angular.module('MyApp').controller('MeCtrl', function($scope, $auth, toastr, API
 
   $scope.getMyBookmarks();
   $scope.editingId = null;
+  $scope.$watch('file', function() {
+    if ($scope.file != null) {
+      $scope.read($scope.file);
+    }
+  });
 });
