@@ -75,7 +75,7 @@ angular.module('MyApp', ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 'ui.
 
   $urlRouterProvider.otherwise('/');
 
-  $authProvider.baseUrl = 'http://localhost:3000';
+  $authProvider.baseUrl = 'http://dry-stream-5480.herokuapp.com';
 
   $authProvider.facebook({
     clientId: '1537545373172672'

@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmazzarolo/bookmarkpack-client-angular.git"
+  },
   "dependencies": {
     "ng-tags-input": "^3.0.0",
     "underscore": "^1.8.3"
