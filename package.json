@@ -8,10 +8,12 @@
     "url": "https://github.com/mmazzarolo/bookmarkpack-client-angular.git"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "./node_modules/grunt-cli/bin/grunt server",
     "test": "mocha"
   },
   "dependencies": {
+    "express": "^4.13.3",
+    "gzippo": "^0.2.0",
     "ng-tags-input": "^3.0.0",
     "underscore": "^1.8.3"
   },
