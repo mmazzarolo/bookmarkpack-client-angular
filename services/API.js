@@ -1,5 +1,5 @@
-angular.module('MyApp').factory('API', function($http) {
-  var baseUrl = 'http://dry-stream-5480.herokuapp.com';
+angular.module('MyApp').factory('API', function($http, secret) {
+  var baseUrl = secret.serverUrl;
 
   return {
 
