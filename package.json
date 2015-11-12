@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
+    "grunt-cli": "^0.1.13",
     "gzippo": "^0.2.0",
     "ng-tags-input": "^3.0.0",
     "underscore": "^1.8.3"
