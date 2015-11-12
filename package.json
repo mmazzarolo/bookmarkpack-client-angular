@@ -7,6 +7,10 @@
     "type": "git",
     "url": "https://github.com/mmazzarolo/bookmarkpack-client-angular.git"
   },
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha"
+  },
   "dependencies": {
     "ng-tags-input": "^3.0.0",
     "underscore": "^1.8.3"
