@@ -230,26 +230,26 @@ ul {
 * Social Buttons
 *********************/
 
-.btn-google-plus {
+.btn-login-google-plus {
   color: #fff;
   background-color: #dd4b39;
   border: 1px solid #d54331;
 }
 
-.btn-google-plus:hover,
-.btn-google-plus:focus {
+.btn-login-google-plus:hover,
+.btn-login-google-plus:focus {
   color: #fff;
   background-color: #cb3927;
 }
 
-.btn-facebook {
+.btn-login-facebook {
   color: #fff;
   background-color: #3b5998;
   border: 1px solid #335190;
 }
 
-.btn-facebook:hover,
-.btn-facebook:focus {
+.btn-login-facebook:hover,
+.btn-login-facebook:focus {
   color: #fff;
   background-color: #294786;
 }
